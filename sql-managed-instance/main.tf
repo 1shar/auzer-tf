@@ -54,6 +54,8 @@ resource "azurerm_mssql_managed_instance" "sql_managed" {
   subnet_id          = azurerm_subnet.sql_managed.id
   vcores             = var.vcores
   collation          = var.collation
+  timezone_id        = var.timezone_id
+
 
   administrator_login          = var.admin_user
   administrator_login_password = var.admin_password
