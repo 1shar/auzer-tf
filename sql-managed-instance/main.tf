@@ -53,6 +53,7 @@ resource "azurerm_mssql_managed_instance" "sql_managed" {
   storage_size_in_gb = var.storage_size_in_gb
   subnet_id          = azurerm_subnet.sql_managed.id
   vcores             = var.vcores
+  collation          = var.collation
 
   administrator_login          = var.admin_user
   administrator_login_password = var.admin_password
