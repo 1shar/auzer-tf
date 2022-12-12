@@ -83,8 +83,15 @@ variable "admin_password" {
   default = "thisIsDog11"
 }
 
+variable "collation" {
+  type = string
+  default = "Korean_Wansung_CI_AS"
+}
 
-
+variable "timezone_id" {
+  type = string
+  default = "Korea Standard Time"
+}
 
 
 
