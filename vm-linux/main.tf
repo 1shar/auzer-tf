@@ -76,7 +76,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
   }
 
   os_profile {
-    computer_name  = "${var.vm_hostname}-${count.index + 1}"
+    computer_name  = "${var.vm_hostname}${count.index + 1}"
     admin_username = var.admin_username
     admin_password = var.admin_password
     custom_data    = var.custom_data
