@@ -163,3 +163,18 @@ resource "azurerm_network_interface_security_group_association" "test" {
   network_interface_id      = azurerm_network_interface.vm[count.index].id
   network_security_group_id = azurerm_network_security_group.vm.id
 }
+
+resource "azurerm_mssql_virtual_machine" "mssqlvm" {
+  virtual_machine_id               = azurerm_virtual_machine.vm.id
+  sql_license_type                 = var.sql_license_type
+  sql_connectivity_port            = 1433
+  sql_connectivity_type            = var.sql_connectivity_type
+  sql_connectivity_update_password = var.sql_connectivity_update_password
+  sql_connectivity_update_username = var.sql_connectivity_update_username
+
+  auto_patching {
+    day_of_week                            = "Sunday"
+    maintenance_window_duration_in_minutes = 60
+    maintenance_window_starting_hour       = 2
+  }
+}
