@@ -16,7 +16,7 @@ resource "azurerm_virtual_machine" "vm-windows" {
   resource_group_name           = data.azurerm_resource_group.vm.name
   location                      = coalesce(var.location, data.azurerm_resource_group.vm.location)
   #availability_set_id          = azurerm_availability_set.vm.id
-  zones                         = "${count.index + 1}"
+  zones                         = [count.index + 1]
   vm_size                       = var.vm_size
   network_interface_ids         = [element(azurerm_network_interface.vm.*.id, count.index)]
   delete_os_disk_on_termination = var.delete_os_disk_on_termination
