@@ -1,6 +1,31 @@
+variable "sql_license_type" {
+  description = "The name of the resource group in which the resources will be created."
+  type        = string
+  default     = "PAYG"
+}
+
+variable "sql_connectivity_type" {
+  description = "The name of the resource group in which the resources will be created."
+  type        = string
+  default     = "PRIVATE"
+}
+
+variable "sql_connectivity_update_password" {
+  description = "The name of the resource group in which the resources will be created."
+  type        = string
+  default     = "Password1234!"
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group in which the resources will be created."
   type        = string
+}
+
+
+variable "sql_connectivity_update_username" {
+  description = "The name of the resource group in which the resources will be created."
+  type        = string
+  default     = "sqllogin"
 }
 
 variable "location" {
