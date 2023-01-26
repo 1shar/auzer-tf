@@ -165,7 +165,8 @@ resource "azurerm_network_interface_security_group_association" "test" {
 }
 
 resource "azurerm_mssql_virtual_machine" "mssqlvm" {
-  virtual_machine_id               = azurerm_virtual_machine.vm-windows.id
+  count                             = var.nb_instances
+  virtual_machine_id               = azurerm_virtual_machine.vm-windows[count.index].id
   sql_license_type                 = var.sql_license_type
   sql_connectivity_port            = 1433
   sql_connectivity_type            = var.sql_connectivity_type
