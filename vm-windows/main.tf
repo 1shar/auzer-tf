@@ -149,7 +149,7 @@ resource "azurerm_network_interface" "vm" {
   enable_accelerated_networking = var.enable_accelerated_networking
 
   ip_configuration {
-    name                          = "${var.vm_hostname}-ip-${count.index + 1}"
+    name                          = "${var.vm_hostname}${count.index + 1}-ip"
     subnet_id                     = var.vnet_subnet_id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = length(azurerm_public_ip.vm.*.id) > 0 ? element(concat(azurerm_public_ip.vm.*.id, tolist([""])), count.index) : ""
