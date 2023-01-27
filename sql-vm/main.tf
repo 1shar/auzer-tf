@@ -200,7 +200,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
 
 resource "azurerm_managed_disk" "datadisk" {
     count = var.nb_instances
-    name                    = "${azurerm_windows_virtual_machine.vm-windows[count.index].name}-sqldata-disk01" 
+    name                    = "${var.vm_hostname}${count.index + 1}-sqldatadisk-${count.index + 1}"
     location                = var.location
     resource_group_name     = var.resource_group_name
     storage_account_type    = "Premium_LRS"
