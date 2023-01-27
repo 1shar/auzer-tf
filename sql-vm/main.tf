@@ -180,20 +180,19 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
   }
  
  storage_configuration {
-    count                 = var.nb_data_disk
     disk_type             = "NEW"
     storage_workload_type = "GENERAL"
     data_settings {
       default_file_path = "D:\\Data"
-      luns              = [azurerm_virtual_machine.vm-windows[count.index].storage_data_disk[count.index].lun]
+      luns              = [azurerm_virtual_machine.vm-windows[0].storage_data_disk[0].lun]
     }
     log_settings {
       default_file_path = "D:\\Log"
-      luns              = [azurerm_virtual_machine.vm-windows[count.index].storage_data_disk[count.index].lun]
+      luns              = [azurerm_virtual_machine.vm-windows[0].storage_data_disk[0].lun]
     }
     temp_db_settings {
       default_file_path = "D:\\TempDb"
-      luns              = [azurerm_virtual_machine.vm-windows[count.index].storage_data_disk[count.index].lun]
+      luns              = [azurerm_virtual_machine.vm-windows[0].storage_data_disk[0].lun]
     }
   }
 }
