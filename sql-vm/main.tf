@@ -204,7 +204,7 @@ resource "azurerm_managed_disk" "datadisk" {
     location                = var.location
     resource_group_name     = var.resource_group_name
     storage_account_type    = "Premium_LRS"
-    zones                   = azurerm_virtual_machine.vm-windows[count.index].zones
+    zone                   = azurerm_virtual_machine.vm-windows[count.index].zones
     create_option           = "Empty"
     disk_size_gb            = 256
     tags                    = var.tags
