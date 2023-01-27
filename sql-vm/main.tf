@@ -180,21 +180,42 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
   }
  
  storage_configuration {
-    disk_type             = "EXTEND"
+    disk_type             = "NEW
     storage_workload_type = "GENERAL"
     data_settings {
-      default_file_path = "E:\\Data"
-      luns              = [0]
+      default_file_path = "F:\\Data"
+      luns              = [1]
     }
     log_settings {
-      default_file_path = "E:\\Log"
-      luns              = [0]
+      default_file_path = "F:\\Log"
+      luns              = [1]
     }
     temp_db_settings {
-      default_file_path = "E:\\TempDb"
-      luns              = [0]
+      default_file_path = "F:\\TempDb"
+      luns              = [1]
     }
   }
+}
+
+
+resource "azurerm_managed_disk" "datadisk" {
+    count = length(var.nb_instances)
+    name                    = "${azurerm_windows_virtual_machine.vm[count.index].name}-sqldata-disk01" 
+    location                = var.location
+    resource_group_name     = var.resource_group_name
+    storage_account_type    = "Premium_LRS"
+    zones                   = azurerm_virtual_machine.vm-windows[count.index].zones
+    create_option           = "Empty"
+    disk_size_gb            = 256
+    tags                    = var.tags
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "datadisk_attach" {
+    count = var.nb_instances
+    managed_disk_id    = azurerm_managed_disk.datadisk[count.index].id
+    virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
+    lun                = 1
+    caching            = "ReadWrite"
 }
 
 
