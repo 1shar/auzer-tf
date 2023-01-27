@@ -180,7 +180,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
   }
  
  storage_configuration {
-    disk_type             = "NEW"
+    disk_type             = "EXTEND"
     storage_workload_type = "GENERAL"
     data_settings {
       default_file_path = "E:\\Data"
