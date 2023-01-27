@@ -180,7 +180,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
   }
  
  storage_configuration {
-    count                 = nb_data_disk
+    count                 = var.nb_data_disk
     disk_type             = "NEW"
     storage_workload_type = "GENERAL"
     data_settings {
