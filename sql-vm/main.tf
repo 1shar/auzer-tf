@@ -178,10 +178,25 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     maintenance_window_duration_in_minutes = 60
     maintenance_window_starting_hour       = 2
   }
-  storage_configuration {
-    disk_type     = "ADD"
+ 
+ storage_configuration {
+    count                 = nb_data_disk
+    disk_type             = "NEW"
     storage_workload_type = "GENERAL"
-    system_db_on_data_disk_enabled  = "true"
-
+    data_settings {
+      default_file_path = "D:\\Data"
+      luns              = [azurerm_virtual_machine.vm-windows.storage_data_disk[count.index].lun]
+    }
+    log_settings {
+      default_file_path = "D:\\Log"
+      luns              = [azurerm_virtual_machine.vm-windows.storage_data_disk[count.index].lun]
+    }
+    temp_db_settings {
+      default_file_path = "D:\\TempDb"
+      luns              = [azurerm_virtual_machine.vm-windows.storage_data_disk[count.index].lun]
+    }
   }
 }
+
+
+
