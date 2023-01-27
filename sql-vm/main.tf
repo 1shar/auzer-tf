@@ -179,7 +179,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     maintenance_window_starting_hour       = 2
   }
   storage_configuration {
-    disk_type     = "NEW"
+    disk_type     = "ADD"
     storage_workload_type = "GENERAL"
     system_db_on_data_disk_enabled  = "true"
 
