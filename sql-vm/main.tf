@@ -183,16 +183,16 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     disk_type             = "NEW"
     storage_workload_type = "GENERAL"
     data_settings {
-      default_file_path = "F:\\Data"
-      luns              = [1]
+      default_file_path = "S:\\Data"
+      luns              = [0]
     }
     log_settings {
-      default_file_path = "F:\\Log"
+      default_file_path = "L:\\Log"
       luns              = [1]
     }
     temp_db_settings {
-      default_file_path = "F:\\TempDb"
-      luns              = [1]
+      default_file_path = "T:\\TempDb"
+      luns              = [2]
     }
   }
 }
@@ -214,7 +214,48 @@ resource "azurerm_virtual_machine_data_disk_attachment" "datadisk_attach" {
     count = var.nb_instances
     managed_disk_id    = azurerm_managed_disk.datadisk[count.index].id
     virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
+    lun                = 0
+    caching            = "ReadWrite"
+}
+
+resource "azurerm_managed_disk" "logdisk" {
+    count = var.nb_instances
+    name                    = "${var.vm_hostname}${count.index + 1}-sqllogdisk-${count.index + 1}"
+    location                = var.location
+    resource_group_name     = var.resource_group_name
+    storage_account_type    = "Premium_LRS"
+    zone                   = "[count.index + 1]"
+    create_option           = "Empty"
+    disk_size_gb            = 64
+    tags                    = var.tags
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "logdisk_attach" {
+    count = var.nb_instances
+    managed_disk_id    = azurerm_managed_disk.logdisk[count.index].id
+    virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
     lun                = 1
+    caching            = "ReadWrite"
+}
+
+
+resource "azurerm_managed_disk" "tmpdisk" {
+    count = var.nb_instances
+    name                    = "${var.vm_hostname}${count.index + 1}-sqltmpdisk-${count.index + 1}"
+    location                = var.location
+    resource_group_name     = var.resource_group_name
+    storage_account_type    = "Premium_LRS"
+    zone                   = "[count.index + 1]"
+    create_option           = "Empty"
+    disk_size_gb            = 64
+    tags                    = var.tags
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "tmpdisk_attach" {
+    count = var.nb_instances
+    managed_disk_id    = azurerm_managed_disk.tmpdisk[count.index].id
+    virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
+    lun                = 2
     caching            = "ReadWrite"
 }
 
