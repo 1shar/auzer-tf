@@ -182,6 +182,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
  storage_configuration {
     disk_type             = "NEW"
     storage_workload_type = "OLTP"
+    system_db_on_data_disk_enabled = "true"
     data_settings {
       default_file_path = "F:\\Data"
       luns              = [1]
@@ -189,10 +190,6 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     log_settings {
       default_file_path = "G:\\Log"
       luns              = [2]
-    }
-    temp_db_settings {
-      default_file_path = "T:\\TempDb"
-      luns              = [3]
     }
   }
 }
@@ -239,25 +236,25 @@ resource "azurerm_virtual_machine_data_disk_attachment" "logdisk_attach" {
 }
 
 
-resource "azurerm_managed_disk" "tmpdisk" {
-    count = var.nb_instances
-    name                    = "${var.vm_hostname}${count.index + 1}-sqltmpdisk-${count.index + 1}"
-    location                = var.location
-    resource_group_name     = var.resource_group_name
-    storage_account_type    = "Premium_LRS"
-    zone                   = "1"
-    create_option           = "Empty"
-    disk_size_gb            = 64
-    tags                    = var.tags
-}
+# resource "azurerm_managed_disk" "tmpdisk" {
+#     count = var.nb_instances
+#     name                    = "${var.vm_hostname}${count.index + 1}-sqltmpdisk-${count.index + 1}"
+#     location                = var.location
+#     resource_group_name     = var.resource_group_name
+#     storage_account_type    = "Premium_LRS"
+#     zone                   = "1"
+#     create_option           = "Empty"
+#     disk_size_gb            = 64
+#     tags                    = var.tags
+# }
 
-resource "azurerm_virtual_machine_data_disk_attachment" "tmpdisk_attach" {
-    count = var.nb_instances
-    managed_disk_id    = azurerm_managed_disk.tmpdisk[count.index].id
-    virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
-    lun                = 3
-    caching            = "ReadWrite"
-}
+# resource "azurerm_virtual_machine_data_disk_attachment" "tmpdisk_attach" {
+#     count = var.nb_instances
+#     managed_disk_id    = azurerm_managed_disk.tmpdisk[count.index].id
+#     virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
+#     lun                = 3
+#     caching            = "ReadWrite"
+# }
 
 
 
