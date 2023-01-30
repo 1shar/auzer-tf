@@ -185,16 +185,16 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     storage_workload_type = "OLTP"
     data_settings {
       default_file_path = "F:\\Data"
-      luns              = [1]
+      luns              = [0]
     }
     log_settings {
       default_file_path = "G:\\Log"
-      luns              = [2]
+      luns              = [1]
     }
-    temp_db_settings {
-      default_file_path = "G:\\TempLog"
-      luns              = [2]
-    }
+#    temp_db_settings {
+#      default_file_path = "G:\\TempLog"
+#      luns              = [2]
+#    }
   }
 }
 
