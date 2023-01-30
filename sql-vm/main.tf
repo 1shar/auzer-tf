@@ -181,7 +181,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
  
  storage_configuration {
     disk_type             = "NEW"
-    storage_workload_type = "GENERAL"
+    storage_workload_type = "OLTP"
     data_settings {
       default_file_path = "F:\\Data"
       luns              = [1]
