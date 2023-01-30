@@ -185,11 +185,11 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     storage_workload_type = "OLTP"
     data_settings {
       default_file_path = "F:\\Data"
-      luns              = [0]
+      luns              = [1]
     }
     log_settings {
       default_file_path = "G:\\Log"
-      luns              = [1]
+      luns              = [2]
     }
     temp_db_settings {
       default_file_path = "D:\\TempLog"
@@ -207,7 +207,7 @@ resource "azurerm_managed_disk" "datadisk" {
     storage_account_type    = "Premium_LRS"
     zone                   = "1"
     create_option           = "Empty"
-    disk_size_gb            = 1024
+    disk_size_gb            = 256
     tags                    = var.tags
 }
 
@@ -227,7 +227,7 @@ resource "azurerm_managed_disk" "logdisk" {
     storage_account_type    = "Premium_LRS"
     zone                   = "1"
     create_option           = "Empty"
-    disk_size_gb            = 64
+    disk_size_gb            = 32
     tags                    = var.tags
 }
 
