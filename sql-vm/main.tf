@@ -206,7 +206,7 @@ resource "azurerm_managed_disk" "datadisk" {
     storage_account_type    = "Premium_LRS"
     zone                   = "1"
     create_option           = "Empty"
-    disk_size_gb            = 256
+    disk_size_gb            = 1024
     tags                    = var.tags
 }
 
