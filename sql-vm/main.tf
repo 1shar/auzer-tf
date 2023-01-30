@@ -172,6 +172,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
   sql_connectivity_type            = var.sql_connectivity_type
   sql_connectivity_update_password = var.sql_connectivity_update_password
   sql_connectivity_update_username = var.sql_connectivity_update_username
+  tags = var.tags
 
   auto_patching {
     day_of_week                            = "Sunday"
@@ -190,6 +191,10 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     log_settings {
       default_file_path = "G:\\Log"
       luns              = [2]
+    }
+    temp_db_settings {
+      default_file_path = "D:\\TempLog"
+      luns              = []
     }
   }
 }
