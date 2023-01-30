@@ -183,11 +183,11 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     disk_type             = "NEW"
     storage_workload_type = "GENERAL"
     data_settings {
-      default_file_path = "S:\\Data"
+      default_file_path = "F:\\Data"
       luns              = [1]
     }
     log_settings {
-      default_file_path = "L:\\Log"
+      default_file_path = "G:\\Log"
       luns              = [2]
     }
     temp_db_settings {
