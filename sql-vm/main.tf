@@ -207,7 +207,7 @@ resource "azurerm_managed_disk" "datadisk" {
     storage_account_type    = "Premium_LRS"
     zone                   = "1"
     create_option           = "Empty"
-    disk_size_gb            = 256
+    disk_size_gb            = 384
     tags                    = var.tags
 }
 
@@ -219,25 +219,25 @@ resource "azurerm_virtual_machine_data_disk_attachment" "datadisk_attach" {
     caching            = "ReadWrite"
 }
 
-resource "azurerm_managed_disk" "logdisk" {
-    count = var.nb_instances
-    name                    = "${var.vm_hostname}${count.index + 1}-sqllogdisk-${count.index + 1}"
-    location                = var.location
-    resource_group_name     = var.resource_group_name
-    storage_account_type    = "Premium_LRS"
-    zone                   = "1"
-    create_option           = "Empty"
-    disk_size_gb            = 32
-    tags                    = var.tags
-}
+# resource "azurerm_managed_disk" "logdisk" {
+#     count = var.nb_instances
+#     name                    = "${var.vm_hostname}${count.index + 1}-sqllogdisk-${count.index + 1}"
+#     location                = var.location
+#     resource_group_name     = var.resource_group_name
+#     storage_account_type    = "Premium_LRS"
+#     zone                   = "1"
+#     create_option           = "Empty"
+#     disk_size_gb            = 32
+#     tags                    = var.tags
+# }
 
-resource "azurerm_virtual_machine_data_disk_attachment" "logdisk_attach" {
-    count = var.nb_instances
-    managed_disk_id    = azurerm_managed_disk.logdisk[count.index].id
-    virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
-    lun                = 1
-    caching            = "ReadWrite"
-}
+# resource "azurerm_virtual_machine_data_disk_attachment" "logdisk_attach" {
+#     count = var.nb_instances
+#     managed_disk_id    = azurerm_managed_disk.logdisk[count.index].id
+#     virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
+#     lun                = 1
+#     caching            = "ReadWrite"
+# }
 
 
 # resource "azurerm_managed_disk" "tmpdisk" {
