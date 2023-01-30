@@ -188,8 +188,8 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
       luns              = [0]
     }
     log_settings {
-      default_file_path = "G:\\Log"
-      luns              = [1]
+      default_file_path = "F:\\Log"
+      luns              = [0]
     }
     temp_db_settings {
       default_file_path = "D:\\TempLog"
