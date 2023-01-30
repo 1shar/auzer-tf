@@ -185,11 +185,11 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     storage_workload_type = "OLTP"
     data_settings {
       default_file_path = "F:\\Data"
-      luns              = [1]
+      luns              = [0]
     }
     log_settings {
       default_file_path = "G:\\Log"
-      luns              = [2]
+      luns              = [1]
     }
     temp_db_settings {
       default_file_path = "D:\\TempLog"
@@ -215,7 +215,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "datadisk_attach" {
     count = var.nb_instances
     managed_disk_id    = azurerm_managed_disk.datadisk[count.index].id
     virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
-    lun                = 1
+    lun                = 0
     caching            = "ReadWrite"
 }
 
@@ -235,7 +235,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "logdisk_attach" {
     count = var.nb_instances
     managed_disk_id    = azurerm_managed_disk.logdisk[count.index].id
     virtual_machine_id = azurerm_virtual_machine.vm-windows[count.index].id
-    lun                = 2
+    lun                = 1
     caching            = "ReadWrite"
 }
 
