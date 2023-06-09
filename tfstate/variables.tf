@@ -4,6 +4,12 @@ variable "service" {
   default     = "test"
 }
 
+variable "system" {
+  description = "service type"
+  type        = string
+  default     = "test"
+}
+
 
 variable "environment" {
   description = "service environment"
