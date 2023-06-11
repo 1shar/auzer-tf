@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "tfstate" {
-  name     = "${var.service}-tfstate-RG" # hws-esh-rg-dev-
+  name     = "${var.company}-${var.system}-rg-tfstate" # hws-esh-rg
   location = var.location
 }
 
