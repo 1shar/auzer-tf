@@ -151,7 +151,7 @@ variable "public_ip_sku" {
 variable "nb_public_ip" {
   description = "Number of public IPs to assign corresponding to one IP per vm. Set to 0 to not assign any public IP addresses."
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "delete_os_disk_on_termination" {
